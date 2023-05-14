@@ -15,12 +15,14 @@ public class Player
 	private boolean isInDoubleCheck;					// If two pieces are checking the king
 	private Piece checkedBy;							// The Piece putting the Player in check
 	private int[] enPassantIndex;						// An index the Player can move to en passant
+	private boolean isComputer;
 	
-	public Player(ChessModel model, String color)
+	public Player(ChessModel model, String color, String playerColor)
 	{
 		// Sets the instance variables
 		this.color = color;
 		this.setModel(model);
+		isComputer = !color.equals(playerColor);
 		
 		// Initializes the ArrayLists
 		pieces = new ArrayList<Piece>();

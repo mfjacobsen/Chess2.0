@@ -41,7 +41,7 @@ public class ChessController
 		{
 			for (int file = 0; file < 8; file ++)
 			{		
-				// If there is a Piece in the square, set the text
+				// If there is a Piece in the square
 				if (model.getBoard().getPiece(new int[] {file,rank}) != null)
 				{
 					// Formats the icon file name based on the piece and color

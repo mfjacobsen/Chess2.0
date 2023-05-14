@@ -10,6 +10,7 @@ public class ChessModel
 	private Board board;
 	private Player white;
 	private Player black;
+	private String playerColor;			
 	private boolean isOver;        		// Boolean for determining when the game is over	
 	private int turnCounter;			// Counter used to determine whose turn it is
 	
@@ -17,8 +18,8 @@ public class ChessModel
 	public ChessModel()
 	{		
 		// Initializes the Players
-		white = new Player(this, "White");
-		black = new Player(this, "Black");
+		white = new Player(this, "White", playerColor);
+		black = new Player(this, "Black", playerColor);
 		
 		// Sets the opponents against each other
 		white.setOpponent(black);
