@@ -37,8 +37,14 @@ public class ChessModel
 		//Sets the turn counter
 		turnCounter = 0;
 		
+		//Sets isOver to false
+		isOver = false;
+		
 		// Initializes a new board
 		board = new Board();
+		
+		white.resetPlayer();
+		black.resetPlayer();
 		
 		// Creates White's starting Pieces
 		white.createNewStartingPieces();
@@ -149,8 +155,6 @@ public class ChessModel
 		
 		// Removes the Piece from the Player's Piece list
 		player.getPieces().remove(board.getPiece(index));
-		
-		System.out.print(pieceChoice);
 		
 		// Switch statement that creates the Piece and adds it to the Players Piece list
 		switch (pieceChoice)

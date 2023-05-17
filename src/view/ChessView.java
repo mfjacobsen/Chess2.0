@@ -98,10 +98,13 @@ public class ChessView extends JFrame
 		board[file][rank] = new JButton();
 		
 		// Sets the borders on the Buttons
-		board[file][rank].setBorder(BorderFactory.createLineBorder(Color.black));
+		board[file][rank].setBorder(BorderFactory.createLineBorder(Color.red));
 		
 		// Hides the button's border
 		board[file][rank].setBorderPainted(false);
+		
+		// Sets the button to opaque, for mac user
+		board[file][rank].setOpaque(true);
 		
 		// Sets color of the black spaces
 		if ((file + rank) % 2 == 0)
@@ -235,10 +238,108 @@ public class ChessView extends JFrame
 	}
 
 	/**
+	 * @return the boardPanel
+	 */
+	public JPanel getBoardPanel()
+	{
+		return boardPanel;
+	}
+
+	/**
+	 * @return the userColor
+	 */
+	public String getUserColor()
+	{
+		return userColor;
+	}
+
+	/**
+	 * @return the gameMenu
+	 */
+	public JMenu getGameMenu()
+	{
+		return gameMenu;
+	}
+
+	/**
+	 * @return the newGameMenuItem
+	 */
+	public JMenuItem getNewGameMenuItem()
+	{
+		return newGameMenuItem;
+	}
+
+	/**
+	 * @return the whiteRadio
+	 */
+	public JRadioButtonMenuItem getWhiteRadio()
+	{
+		return whiteRadio;
+	}
+
+	/**
+	 * @return the blackRadio
+	 */
+	public JRadioButtonMenuItem getBlackRadio()
+	{
+		return blackRadio;
+	}
+
+	/**
 	 * @param board the board to set
 	 */
 	public void setBoard(JButton[][] board)
 	{
 		this.board = board;
 	}
+
+	/**
+	 * @param boardPanel the boardPanel to set
+	 */
+	public void setBoardPanel(JPanel boardPanel)
+	{
+		this.boardPanel = boardPanel;
+	}
+
+	/**
+	 * @param userColor the userColor to set
+	 */
+	public void setUserColor(String userColor)
+	{
+		this.userColor = userColor;
+	}
+
+	/**
+	 * @param gameMenu the gameMenu to set
+	 */
+	public void setGameMenu(JMenu gameMenu)
+	{
+		this.gameMenu = gameMenu;
+	}
+
+	/**
+	 * @param newGameMenuItem the newGameMenuItem to set
+	 */
+	public void setNewGameMenuItem(JMenuItem newGameMenuItem)
+	{
+		this.newGameMenuItem = newGameMenuItem;
+	}
+
+	/**
+	 * @param whiteRadio the whiteRadio to set
+	 */
+	public void setWhiteRadio(JRadioButtonMenuItem whiteRadio)
+	{
+		this.whiteRadio = whiteRadio;
+	}
+
+	/**
+	 * @param blackRadio the blackRadio to set
+	 */
+	public void setBlackRadio(JRadioButtonMenuItem blackRadio)
+	{
+		this.blackRadio = blackRadio;
+	}
+
+
 }

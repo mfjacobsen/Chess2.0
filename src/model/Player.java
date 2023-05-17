@@ -103,6 +103,17 @@ public class Player
 			piece.determinePins();
 		}
 	}
+	
+	public void resetPlayer()
+	{
+		indicesToMoveFrom.clear();
+		indicesThreatened.clear();
+		isInCheck = false;
+		isInDoubleCheck = false;
+		checkedBy = null;
+		enPassantIndex = null;
+		isComputer = false;
+	}
 
 	/**
 	 * @return the model

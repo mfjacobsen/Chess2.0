@@ -20,15 +20,12 @@ public class ChessController
 		this.model = model;
 		this.view = view;
 		
-		// Nested for loops iterate through each button on the board
-		for(int rank = 7;  rank >= 0; rank --)
-		{
-			for (int file = 0; file < 8; file ++)
-			{
-				// Adds an action listener to the button
-				view.getBoard()[file][rank].addActionListener(new BoardButtonListener(model, view, this, new int[] {file,rank}));
-			}
-		}
+		addBoardListeners();
+		
+		// Adds an action listener to the new game menu item
+		view.getNewGameMenuItem().addActionListener(new NewGameMenuListener(this));
+		view.getWhiteRadio().addActionListener(new ColorRadioListener(model, view, this, "White"));
+		view.getBlackRadio().addActionListener(new ColorRadioListener(model, view, this, "Black"));
 		
 		// Updates the chess view
 		updateView();
@@ -75,6 +72,33 @@ public class ChessController
 		// Updates the view
 		updateView();
 	}
+	
+	public void addBoardListeners()
+	{
+		// Nested for loops iterate through each button on the board
+		for(int rank = 7;  rank >= 0; rank --)
+		{
+			for (int file = 0; file < 8; file ++)
+			{
+				// Adds an action listener to the button
+				view.getBoard()[file][rank].addActionListener(new BoardButtonListener(model, view, this, new int[] {file,rank}));
+			}
+		}
+	}
+	
+	public void newGame()
+	{
+		model.newGame();
+		
+		view.remove(view.getBoardPanel());
+		view.buildBoardPanel();
+		
+		view.revalidate();
+		view.repaint();
+		
+		addBoardListeners();
+		updateView();
+	}
 
 	/**
 	 * @return the selectedIndex
@@ -106,5 +130,53 @@ public class ChessController
 	public void setIndicesToMoveTo(ArrayList<int[]> indicesToMoveTo)
 	{
 		this.indicesToMoveTo = indicesToMoveTo;
+	}
+
+	/**
+	 * @return the model
+	 */
+	public ChessModel getModel()
+	{
+		return model;
+	}
+
+	/**
+	 * @return the view
+	 */
+	public ChessView getView()
+	{
+		return view;
+	}
+
+	/**
+	 * @return the selectedPieceIndex
+	 */
+	public int[] getSelectedPieceIndex()
+	{
+		return selectedPieceIndex;
+	}
+
+	/**
+	 * @param model the model to set
+	 */
+	public void setModel(ChessModel model)
+	{
+		this.model = model;
+	}
+
+	/**
+	 * @param view the view to set
+	 */
+	public void setView(ChessView view)
+	{
+		this.view = view;
+	}
+
+	/**
+	 * @param selectedPieceIndex the selectedPieceIndex to set
+	 */
+	public void setSelectedPieceIndex(int[] selectedPieceIndex)
+	{
+		this.selectedPieceIndex = selectedPieceIndex;
 	}
 }
