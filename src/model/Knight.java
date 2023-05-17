@@ -70,7 +70,4 @@ public class Knight extends Piece
 	{
 		// The Knight cannot pin pieces
 	}
-
-	
-
 }

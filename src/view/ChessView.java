@@ -63,7 +63,7 @@ public class ChessView extends JFrame
 		boardPanel.setLayout(new GridLayout(8,8));
 		
 		// If userColor is white
-		if (userColor.equals("Black"))
+		if (userColor.equals("White"))
 		{
 			// Nested for loops iterate through each button on the board
 			for(int rank = 7;  rank >= 0; rank --)

@@ -133,7 +133,6 @@ public class Queen extends Piece
 		} while (!foundKing);
 	}
 
-	
 	@Override
 	public void determinePins()
 	{

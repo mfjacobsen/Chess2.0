@@ -11,11 +11,17 @@ public class MVCChess
 	 */
 	public static void main(String[] args)
 	{
-		// TODO surround try catch
+		try 
+		{
+			// Creates new Chess model, view, and controller
+			ChessModel model = new ChessModel();
+			ChessView view = new ChessView();
+			ChessController controller = new ChessController(model, view);
+		}
 		
-		// Creates new Chess model, view, and controller
-		ChessModel model = new ChessModel();
-		ChessView view = new ChessView();
-		ChessController controller = new ChessController(model, view);
+		catch(Exception e)
+		{
+			System.out.println("Error, please restart.");
+		}		
 	}
 }
