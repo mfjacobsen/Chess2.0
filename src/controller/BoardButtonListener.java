@@ -4,9 +4,6 @@ import model.ChessModel;
 import view.ChessView;
 
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.swing.*;
 
 public class BoardButtonListener implements ActionListener

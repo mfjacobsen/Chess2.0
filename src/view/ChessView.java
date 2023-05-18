@@ -19,14 +19,15 @@ import javax.swing.*;
 public class ChessView extends JFrame
 {
 	// Instance variable declarations
-	private JButton[][] board;
-	private JPanel boardPanel;
-	private String userColor;
-	private JMenuBar menuBar;
-	private JMenu gameMenu;
-	private JMenuItem newGameMenuItem;
-	private JRadioButtonMenuItem whiteRadio;
-	private JRadioButtonMenuItem blackRadio;
+	private JButton[][] board;				// An array of buttons that make up the chess board
+	private JPanel boardPanel;				// Holds the inner board panel, sets the size of the board
+	private JPanel innerBoardPanel;			// Holds the board buttons
+	private String userColor;				// The color of the user
+	private JMenuBar menuBar;				// The menu bar 
+	private JMenu gameMenu;					// The game menu
+	private JMenuItem newGameMenuItem;		// Starts a new game
+	private JRadioButtonMenuItem whiteRadio;// Changes the user color to white on next new game
+	private JRadioButtonMenuItem blackRadio;// Changes the user color to black on next new game
 	
 	/**
 	 * Constructor
@@ -44,6 +45,8 @@ public class ChessView extends JFrame
 		
 		// Sets the default close operation
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 				
 		// Packs and views the frame
 		pack();	
@@ -55,14 +58,22 @@ public class ChessView extends JFrame
 	 */
 	public void buildBoardPanel()
 	{
+		// Initializes the board panel
+		boardPanel = new JPanel();
+				
+		// Sets the Preferred and min/max size of the panel
+		boardPanel.setPreferredSize(new Dimension(720,720));
+		boardPanel.setMinimumSize(new Dimension(720,720));
+		boardPanel.setMaximumSize(new Dimension(720,720));
+		
+		// Initializes the inner board panel with a new 8x8 grid layout
+		innerBoardPanel = new JPanel();
+		innerBoardPanel.setLayout(new GridLayout(8,8));	
+		
 		// Initializes the board
 		board = new JButton[8][8];
 		
-		// Initializes the board panel with a new 8x8 grid layout
-		boardPanel = new JPanel();
-		boardPanel.setLayout(new GridLayout(8,8));
-		
-		// If userColor is white
+		// If the user is white, orient the board with white at the bottom
 		if (userColor.equals("White"))
 		{
 			// Nested for loops iterate through each button on the board
@@ -70,12 +81,13 @@ public class ChessView extends JFrame
 			{
 				for (int file = 0; file < 8; file ++)
 				{
+					// Build and add the button at the file and rank
 					buildButton(file,rank);
 				}
 			}
 		}
 		
-		// Else the user is black
+		// Else the user is black, orient the board with black at the bottom
 		else
 		{
 			// Nested for loops iterate through each button on the board
@@ -83,42 +95,45 @@ public class ChessView extends JFrame
 			{
 				for (int file = 0; file < 8; file ++)
 				{
+					// Build and add the button at the file and rank
 					buildButton(file,rank);
 				}
 			}
 		}
-	
-		// Adds the board panel to the frame
+		
+		// Adds the board panel to the sized board panel
+		boardPanel.add(innerBoardPanel);
+		
+		// Adds the sized board panel to the frame
 		add(boardPanel);
 	}
 	
+	/**
+	 * Builds and formats a button that serves as a space on the chess board.
+	 * @param file the file index of the button
+	 * @param rank the rank index of the button
+	 */
 	private void buildButton(int file, int rank)
-	{
+	{		
 		// Initializes the button and displays its index
 		board[file][rank] = new JButton();
 		
 		// Sets the borders on the Buttons
-		board[file][rank].setBorder(BorderFactory.createLineBorder(Color.red));
+		board[file][rank].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 		
 		// Hides the button's border
 		board[file][rank].setBorderPainted(false);
 		
-		// Sets the button to opaque, for mac user
+		// Sets the button to opaque (necessary for Mac users)
 		board[file][rank].setOpaque(true);
 		
-		// Sets color of the black spaces
-		if ((file + rank) % 2 == 0)
-			board[file][rank].setBackground(Color.GRAY);
-		
-		// Sets the color of the white spaces
-		else
-			board[file][rank].setBackground(Color.WHITE);
-		
-		// Sets the preferred size of the button
+		// Sets the preferred and min/max size of the buttons
 		board[file][rank].setPreferredSize(new Dimension(90,90));
-			
-		// Adds the button to the board panel
-		boardPanel.add(board[file][rank]);
+		board[file][rank].setMinimumSize(new Dimension(90,90));
+		board[file][rank].setMaximumSize(new Dimension(90,90));
+		
+		// Adds the button to the inner board panel
+		innerBoardPanel.add(board[file][rank]);
 	}
 	
 	private void buildMenu()
@@ -126,15 +141,17 @@ public class ChessView extends JFrame
 		// Initialize the menu bar
 		menuBar = new JMenuBar();
 		
-		// Initialize the game menu
+		// Initialize the game menu and set mnemonic key 
 		gameMenu = new JMenu("Game");
 		gameMenu.setMnemonic(KeyEvent.VK_G);
 		
-		// Initialize the player color menu
+		// Initialize the player color menu and set mnemonic key
 		JMenu playerColorMenu = new JMenu("Player Color");
+		playerColorMenu.setMnemonic(KeyEvent.VK_C);
 		
-		// Initializes the new game menu item
+		// Initializes the new game menu item and set mnemonic key
 		newGameMenuItem = new JMenuItem("New Game");
+		newGameMenuItem.setMnemonic(KeyEvent.VK_N);
 		
 		// Adds the new game menu item to the menu
 		gameMenu.add(newGameMenuItem);
@@ -146,11 +163,13 @@ public class ChessView extends JFrame
 		whiteRadio = new JRadioButtonMenuItem("White");
 		blackRadio = new JRadioButtonMenuItem("Black");
 		
+		// Sets mnemonic keys on radio buttons
+		whiteRadio.setMnemonic(KeyEvent.VK_W);
+		blackRadio.setMnemonic(KeyEvent.VK_B);
+		
 		// Adds the radio buttons to the button group
 		colorRadioGroup.add(whiteRadio);
 		colorRadioGroup.add(blackRadio);
-		
-		
 		
 		// Adds the radio group to the player color menu
 		playerColorMenu.add(whiteRadio);
@@ -165,14 +184,15 @@ public class ChessView extends JFrame
 		// Add the game menu to the menu bar
 		menuBar.add(gameMenu);
 		
-		
-		
 		// Set the menu bar
 		setJMenuBar(menuBar);
-		
-		
 	}
 	
+	/**
+	 * Displays the Promote Piece dialog window
+	 * @param color The color of the promoting piece
+	 * @return An integer representing the player's choice, 0-3 for Queen, Rook, Bishop, or Knight
+	 */
 	public int promotePiece(String color)
 	{
 		// Declares an array of icons to display
@@ -216,8 +236,8 @@ public class ChessView extends JFrame
 	}
 
 	/**
-	 * Paints the border of every button in the idices list
-	 * @param indices a list of button indices to paint
+	 * Paints the border of every button in the indices list
+	 * @param indices A list of button indices to paint the borders of
 	 */
 	public void paintBorders(ArrayList<int[]> indices)
 	{

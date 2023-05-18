@@ -13,15 +13,16 @@ public class MVCChess
 	{
 		try 
 		{
-			// Creates new Chess model, view, and controller
+			// Creates a new Chess model, view, and controller
 			ChessModel model = new ChessModel();
 			ChessView view = new ChessView();
 			ChessController controller = new ChessController(model, view);
 		}
 		
+		// Catches all exceptions
 		catch(Exception e)
 		{
-			System.out.println("Error, please restart.");
+			e.printStackTrace();
 		}		
 	}
 }
