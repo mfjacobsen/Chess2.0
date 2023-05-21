@@ -6,20 +6,32 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /**
- * View 
- * 
- * References:
+ * Lead Authors:
  *
- * https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
- * https://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+ * @author Matthew Jacobsen; 5550026131
+ * @author Daniel Blasczyk; 5550063899
+ *
+ * References:
  * 
- * @author mfjac
+ * 		Morelli, R., & Walde, R. (2016). 
+ * 		Java, Java, Java: Object-Oriented Problem Solving
+ * 		Retrieved from https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ * 		Gaddis, T. (2015). Starting Out With Java Myprogramming Lab 
+ * 		From Control Structures Through Objects. (6th ed.). Addison-Wesley. 
+ * 
+ * 		https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+ *		https://docs.oracle.com/javase/7/docs/api/javax/swing/JOptionPane.html
+ *
+ * Version: 1
+ *
+ * Responsibilities of class: Displays the chess model in a GUI.
  *
  */
 public class ChessView extends JFrame
 {
 	// Instance variable declarations
-	private JButton[][] board;				// An array of buttons that make up the chess board
+	private BoardButton[][] board;			// An array of buttons that make up the chess board
 	private JPanel boardPanel;				// Holds the inner board panel, sets the size of the board
 	private JPanel innerBoardPanel;			// Holds the board buttons
 	private String userColor;				// The color of the user
@@ -45,9 +57,7 @@ public class ChessView extends JFrame
 		
 		// Sets the default close operation
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-				
+			
 		// Packs and views the frame
 		pack();	
 		setVisible(true);
@@ -71,7 +81,7 @@ public class ChessView extends JFrame
 		innerBoardPanel.setLayout(new GridLayout(8,8));	
 		
 		// Initializes the board
-		board = new JButton[8][8];
+		board = new BoardButton[8][8];
 		
 		// If the user is white, orient the board with white at the bottom
 		if (userColor.equals("White"))
@@ -79,10 +89,13 @@ public class ChessView extends JFrame
 			// Nested for loops iterate through each button on the board
 			for(int rank = 7;  rank >= 0; rank --)
 			{
-				for (int file = 0; file < 8; file ++)
+				for (int file = 0; file <= 7; file ++)
 				{
-					// Build and add the button at the file and rank
-					buildButton(file,rank);
+					// Creates a new board button 
+					board[file][rank] = new BoardButton();
+					
+					// Adds the button to the inner board panel
+					innerBoardPanel.add(board[file][rank]);
 				}
 			}
 		}
@@ -93,10 +106,13 @@ public class ChessView extends JFrame
 			// Nested for loops iterate through each button on the board
 			for(int rank = 0;  rank <= 7; rank ++)
 			{
-				for (int file = 0; file < 8; file ++)
+				for (int file = 7; file >= 0; file --)
 				{
-					// Build and add the button at the file and rank
-					buildButton(file,rank);
+					// Creates a new board button 
+					board[file][rank] = new BoardButton();
+					
+					// Adds the button to the inner board panel
+					innerBoardPanel.add(board[file][rank]);
 				}
 			}
 		}
@@ -109,33 +125,8 @@ public class ChessView extends JFrame
 	}
 	
 	/**
-	 * Builds and formats a button that serves as a space on the chess board.
-	 * @param file the file index of the button
-	 * @param rank the rank index of the button
+	 * Builds the view's menus
 	 */
-	private void buildButton(int file, int rank)
-	{		
-		// Initializes the button and displays its index
-		board[file][rank] = new JButton();
-		
-		// Sets the borders on the Buttons
-		board[file][rank].setBorder(BorderFactory.createLineBorder(Color.ORANGE));
-		
-		// Hides the button's border
-		board[file][rank].setBorderPainted(false);
-		
-		// Sets the button to opaque (necessary for Mac users)
-		board[file][rank].setOpaque(true);
-		
-		// Sets the preferred and min/max size of the buttons
-		board[file][rank].setPreferredSize(new Dimension(90,90));
-		board[file][rank].setMinimumSize(new Dimension(90,90));
-		board[file][rank].setMaximumSize(new Dimension(90,90));
-		
-		// Adds the button to the inner board panel
-		innerBoardPanel.add(board[file][rank]);
-	}
-	
 	private void buildMenu()
 	{
 		// Initialize the menu bar
@@ -193,8 +184,17 @@ public class ChessView extends JFrame
 	 * @param color The color of the promoting piece
 	 * @return An integer representing the player's choice, 0-3 for Queen, Rook, Bishop, or Knight
 	 */
-	public int promotePiece(String color)
+	public int promotePiece(String color, int[] index)
 	{
+		// The color of the square the Piece is promoting on
+		String squareColor = null;
+		
+		// Sets the square color of the space
+		if ((index[0] + index[1]) % 2 == 0)
+			squareColor = "Dark";
+		else
+			squareColor = "Light";
+		
 		// Declares an array of icons to display
 		ImageIcon icons[] = new ImageIcon[4];
 		
@@ -208,7 +208,7 @@ public class ChessView extends JFrame
 		for (int i = 0; i < 4; i++)
 		{
 			// Sets the icon file name
-			iconFileNames[i] = String.format("icons/%s%s.png", color, promotionPieces[i]);
+			iconFileNames[i] = String.format("icons/%s%s%s.png",squareColor, color, promotionPieces[i]);
 			
 			// Initializes the icon
 			icons[i] = new ImageIcon(iconFileNames[i]);
@@ -248,11 +248,20 @@ public class ChessView extends JFrame
 			board[index[0]][index[1]].setBorderPainted(true);
 		}
 	}
+	
+	/**
+	 * Displays the game end message dialog
+	 * @param gameOutcome the outcome of the game
+	 */
+	public void endGame(String gameOutcome)
+	{
+		JOptionPane.showMessageDialog(null, gameOutcome);
+	}
 
 	/**
 	 * @return the board
 	 */
-	public JButton[][] getBoard()
+	public BoardButton[][] getBoard()
 	{
 		return board;
 	}
@@ -308,7 +317,7 @@ public class ChessView extends JFrame
 	/**
 	 * @param board the board to set
 	 */
-	public void setBoard(JButton[][] board)
+	public void setBoard(BoardButton[][] board)
 	{
 		this.board = board;
 	}

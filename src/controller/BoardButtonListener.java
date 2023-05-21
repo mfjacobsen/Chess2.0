@@ -2,18 +2,44 @@ package controller;
 
 import model.ChessModel;
 import view.ChessView;
-
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Lead Authors:
+ *
+ * @author Matthew Jacobsen; 5550026131
+ * @author Daniel Blasczyk; 5550063899
+ *
+ * References:
+ * 
+ * 		Morelli, R., & Walde, R. (2016). 
+ * 		Java, Java, Java: Object-Oriented Problem Solving
+ * 		Retrieved from https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ * 		Gaddis, T. (2015). Starting Out With Java Myprogramming Lab 
+ * 		From Control Structures Through Objects. (6th ed.). Addison-Wesley. 
+ *
+ * Version: 1
+ *
+ * Responsibilities of class: Defines actions for the board buttons.
+ *
+ */
 public class BoardButtonListener implements ActionListener
 {
-	private ChessModel model;
-	private ChessView view;
-	private ChessController controller;
-	private int[] index;
-	private JButton button;
-	
+	private ChessModel model;			// The chess model
+	private ChessView view;				// The chess view
+	private ChessController controller;	// The chess controller
+	private JButton button;				// The button the listener is attached to
+	private int[] index;				// The index of the board button
+
+	/**
+	 * Constructor.
+	 * @param model the chess model
+	 * @param view the chess view
+	 * @param controller the chess controller
+	 * @param index the chess index
+	 */
 	public BoardButtonListener(ChessModel model, ChessView view, ChessController controller, int[] index)
 	{
 		// Sets the instance variables
@@ -21,9 +47,14 @@ public class BoardButtonListener implements ActionListener
 		this.view = view;
 		this.controller = controller;
 		this.index = index;
+		
+		// Sets the button
 		button = view.getBoard()[index[0]][index[1]];
 	}
 
+	/**
+	 * Defines actions for the button when pressed.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{	
@@ -34,6 +65,12 @@ public class BoardButtonListener implements ActionListener
 		if (model.isOver())
 			return;	
 		
+		// If the user tries to select an opponent Piece, do nothing
+		else if (model.getBoard().getPiece(index) != null &&
+				!model.getBoard().getPiece(index).getPlayer().getColor().equals(controller.getUserColor()) &&
+				controller.getSelectedPieceIndex() == null)
+			return;
+
 		// If there is a Piece at the index and the Piece has available moves
 		else if (model.getBoard().getPiece(index) != null && !model.getBoard().getPiece(index).getMoves().isEmpty())
 		{
@@ -41,7 +78,7 @@ public class BoardButtonListener implements ActionListener
 			button.setBorderPainted(true);
 			
 			// Sets this piece as selected in the controller
-			controller.setSelectedIndex(index);
+			controller.setSelectedPieceIndex(index);
 			
 			// Sets the available moves for this piece in the controller
 			controller.setIndicesToMoveTo(model.getBoard().getPiece(index).getMoves());
@@ -51,35 +88,17 @@ public class BoardButtonListener implements ActionListener
 		}
 		
 		// If there is already a Piece selected and the button pressed was one of the available moves
-		else if (controller.getSelectedIndex() != null && ChessModel.checkContains(index, controller.getIndicesToMoveTo()))
+		else if (controller.getSelectedPieceIndex() != null && ChessModel.checkContains(index, controller.getIndicesToMoveTo()))
 		{
-			// Moves the Piece in the model
-			model.makeMove(controller.getSelectedIndex(), index);
-			
-			// If the Piece is promoting
-			if (model.getBoard().getPiece(index).isPromoting())
-			{
-				// Promote the Piece 
-				controller.promotePiece(index, model.getBoard().getPiece(index).getPlayer().getColor());
-			}
-			
-			// Moves the Piece in the view
-			controller.updateView();
-			
-			// Clears the board of borders and resets the selected Piece and it's moves
-			view.clearBorders();
-			controller.setSelectedIndex(null);
-			controller.setIndicesToMoveTo(null);
+			// Make the move
+			controller.makeMove(controller.getSelectedPieceIndex(), index);
 		}
 		
 		else
 		{
 			// resets the selected piece and its moves
-			controller.setSelectedIndex(null);
+			controller.setSelectedPieceIndex(null);
 			controller.setIndicesToMoveTo(null);
-		}
-		
-		// Check if the game is over
-		model.checkOver();
+		}		
 	}
 }

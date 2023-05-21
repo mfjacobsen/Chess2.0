@@ -2,36 +2,66 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Lead Authors:
+ *
+ * @author Matthew Jacobsen; 5550026131
+ * @author Daniel Blasczyk; 5550063899
+ *
+ * References:
+ * 
+ * 		Morelli, R., & Walde, R. (2016). 
+ * 		Java, Java, Java: Object-Oriented Problem Solving
+ * 		Retrieved from https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ * 		Gaddis, T. (2015). Starting Out With Java Myprogramming Lab 
+ * 		From Control Structures Through Objects. (6th ed.). Addison-Wesley. 
+ *
+ * Version: 1
+ *
+ * Responsibilities of class: Defines a player, white or black.
+ *
+ */
 public class Player
 {
-	private ChessModel model;
-	private String color;
-	private ArrayList<Piece> pieces;
+	private ChessModel model;							// The chess model
+	private String color;								// The color of the player
+	private ArrayList<Piece> pieces;					// The Player's Pieces
 	private ArrayList<int[]> indicesToMoveFrom;			// List of indices the player has pieces to move from
-	private ArrayList<int[]> indicesThreatened;  	    // A list of indices threatened by the player
+	private ArrayList<int[]> indicesThreatened;  	    // List of indices threatened by the player
 	private Piece king;									// The Player's King
-	private Player opponent;							// The opposing player
-	private boolean isInCheck;							// If the player is in check
-	private boolean isInDoubleCheck;					// If two pieces are checking the king
+	private Player opponent;							// The opposing Player
+	private boolean isInCheck;							// If the Player is in check
+	private boolean isInDoubleCheck;					// If two Pieces are checking the King
 	private Piece checkedBy;							// The Piece putting the Player in check
 	private int[] enPassantIndex;						// An index the Player can move to en passant
-	private boolean isComputer;
+	private String castlingRights;						// The castling rights of the Player in FEN notation
 	
-	public Player(ChessModel model, String color, String playerColor)
+	/**
+	 * Constructor.
+	 * @param model
+	 * @param color
+	 */
+	public Player(ChessModel model, String color)
 	{
 		// Sets the instance variables
 		this.color = color;
 		this.setModel(model);
-		isComputer = !color.equals(playerColor);
 		
 		// Initializes the ArrayLists
 		pieces = new ArrayList<Piece>();
 		indicesToMoveFrom = new ArrayList<int[]>();
 		indicesThreatened = new ArrayList<int[]>();
+		
+		// Sets the castling rights of the player
+		if (color.equals("White"))
+			setCastlingRights("KQ");
+		else
+			setCastlingRights("kq");
 	}
 	
 	/**
-	 * Creates a list of new Pieces
+	 * Creates a list of new Pieces.
 	 */
 	public void createNewStartingPieces()
 	{
@@ -59,8 +89,14 @@ public class Player
 		king = pieces.get(4);
 	}
 
+	/**
+	 * Determines each Piece's moves.
+	 */
 	public void determineMoves()
 	{		
+		// Clear the indices to moveFrom list
+		indicesToMoveFrom.clear();
+		
 		// For each of the Player's Pieces
 		for (Piece piece : pieces)
 		{
@@ -70,19 +106,19 @@ public class Player
 	}
 	
 	/**
-	 * Moves a Piece from one space to another
-	 * @param fromIndex
-	 * @param toIndex
+	 * Moves a Piece from one space to another.
+	 * @param fromIndex the index of the Piece that is moving
+	 * @param toIndex the index the Piece is moving to
 	 */
 	public void makeMove(int[] fromIndex, int[] toIndex)
-	{
+	{		
 		// Move the Piece on the board
 		model.getBoard().movePiece(fromIndex, toIndex);
 		
 		// Clear possible moves from each Piece
 		for (Piece piece: pieces)
 			piece.getMoves().clear();
-		
+
 		// Clears the coordinates threatened, and indices to move from lists and resets check booleans
 		indicesToMoveFrom.clear();
 		indicesThreatened.clear();
@@ -104,15 +140,24 @@ public class Player
 		}
 	}
 	
+	/**
+	 * Reset's the player for a new game.
+	 */
 	public void resetPlayer()
 	{
+		// Resets the Player's fields
 		indicesToMoveFrom.clear();
 		indicesThreatened.clear();
 		isInCheck = false;
 		isInDoubleCheck = false;
 		checkedBy = null;
 		enPassantIndex = null;
-		isComputer = false;
+		
+		// Resets the castling rights of the Player
+		if (color.equals("White"))
+			setCastlingRights("KQ");
+		else
+			setCastlingRights("kq");
 	}
 
 	/**
@@ -291,8 +336,20 @@ public class Player
 		this.enPassantIndex = enPassantIndex;
 	}
 
+	/**
+	 * @return the castlingRights
+	 */
+	public String getCastlingRights()
+	{
+		return castlingRights;
+	}
 
-	
-	
+	/**
+	 * @param castlingRights the castlingRights to set
+	 */
+	public void setCastlingRights(String castlingRights)
+	{
+		this.castlingRights = castlingRights;
+	}
 }
 

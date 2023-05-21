@@ -3,13 +3,37 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Lead Authors:
+ *
+ * @author Matthew Jacobsen; 5550026131
+ * @author Daniel Blasczyk; 5550063899
+ *
+ * References:
+ * 
+ * 		Morelli, R., & Walde, R. (2016). 
+ * 		Java, Java, Java: Object-Oriented Problem Solving
+ * 		Retrieved from https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ * 		Gaddis, T. (2015). Starting Out With Java Myprogramming Lab 
+ * 		From Control Structures Through Objects. (6th ed.). Addison-Wesley. 
+ *
+ * Version: 1
+ *
+ * Responsibilities of class: Defines the pawn.
+ *
+ */
 public class Pawn extends Piece
 {
-	// Instance variable declaration
 	int direction;			// The direction the pawn moves
 	
+	/**
+	 * Constructor.
+	 * @param player the Player the Piece belongs to
+	 */
 	public Pawn(Player player)
 	{
+		// Calls the Piece constructor
 		super(player);
 		
 		// If the player is white, direction is one
@@ -22,6 +46,10 @@ public class Pawn extends Piece
 		
 	}
 
+	/**
+	 * Determines the indices the pawn is threatening
+	 * @return an array list of int[] the pawn is threatening
+	 */
 	@Override
 	public ArrayList<int[]> determineThreats()
 	{
@@ -48,6 +76,9 @@ public class Pawn extends Piece
 		return getThreats();
 	}
 
+	/**
+	 * Determines the pawn's available moves
+	 */
 	@Override
 	public void determineMoves()
 	{
@@ -95,6 +126,9 @@ public class Pawn extends Piece
 		}		
 	}
 
+	/**
+	 * Determines the pawn's line of attack on the opponent king
+	 */
 	@Override
 	public void determineLineOfAttack()
 	{
@@ -106,11 +140,26 @@ public class Pawn extends Piece
 		
 	}
 
+	/**
+	 * The pawn cannot pin other Pieces
+	 */
 	@Override
-	public void determinePins()
+	public void determinePins() {}
+	
+	/**
+	 * Gets the value of the piece in FEN notation
+	 * @return the value of the piece in FEN notation
+	 */
+	@Override
+	public String toString()
 	{
-		// TODO Auto-generated method stub
+		// If the player is white, return a capital letter
+		if (getPlayer().getColor().equals("White"))
+			return "P";
 		
+		// Else return a lower case letter
+		else 
+			return  "p";
 	}
 
 }

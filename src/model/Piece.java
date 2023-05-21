@@ -2,6 +2,26 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Lead Authors:
+ *
+ * @author Matthew Jacobsen; 5550026131
+ * @author Daniel Blasczyk; 5550063899
+ *
+ * References:
+ * 
+ * 		Morelli, R., & Walde, R. (2016). 
+ * 		Java, Java, Java: Object-Oriented Problem Solving
+ * 		Retrieved from https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ * 		Gaddis, T. (2015). Starting Out With Java Myprogramming Lab 
+ * 		From Control Structures Through Objects. (6th ed.). Addison-Wesley. 
+ *
+ * Version: 1
+ *
+ * Responsibilities of class: Defines a chess piece.
+ *
+ */
 public abstract class Piece
 {
 	// Instance variable declarations
@@ -33,9 +53,12 @@ public abstract class Piece
 		threats = new ArrayList<int[]>();
 		lineOfAttack = new ArrayList<int[]>();
 		pinnedLineOfAttack = new ArrayList<int[]>();
-		
 	}
 
+	/**
+	 * Check's if the Piece's available move is valid
+	 * @param index the index the Piece is moving to
+	 */
 	public void addMove(int[] index)
 	{
 		// If the Player is in DoubleCheck
@@ -80,6 +103,10 @@ public abstract class Piece
 				
 	}
 	
+	/**
+	 * Adds the move to the Piece's move list
+	 * @param index the index the Piece is moving to
+	 */
 	public void confirmMove(int[] index)
 	{
 		// Add the move to the Pieces move
@@ -91,6 +118,10 @@ public abstract class Piece
 			player.getIndicesToMoveFrom().add(this.index);
 	}
 	
+	/**
+	 * Adds an index to the list of indices the Player is threatening. 
+	 * @param index the index the Piece is threatening. 
+	 */
 	public void addThreatened(int[] index)
 	{
 		// Adds the index to the Piece's list of threats
@@ -131,7 +162,7 @@ public abstract class Piece
 	
 	/**
 	 * Determines the indices the Piece is threatening
-	 * @return 
+	 * @return and array list of int[] the Piece is threatening
 	 */
 	public abstract ArrayList<int[]> determineThreats();
 	
@@ -145,6 +176,12 @@ public abstract class Piece
 	 */
 	public abstract void determinePins();
 
+	/**
+	 * Gets the value of the piece in FEN notation
+	 * @return the value of the piece in FEN notation
+	 */
+	public abstract String toString();
+	
 	/**
 	 * @return the player
 	 */

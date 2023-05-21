@@ -2,10 +2,29 @@ package model;
 
 import java.util.Arrays;
 
+/**
+ * Lead Authors:
+ *
+ * @author Matthew Jacobsen; 5550026131
+ * @author Daniel Blasczyk; 5550063899
+ *
+ * References:
+ * 
+ * 		Morelli, R., & Walde, R. (2016). 
+ * 		Java, Java, Java: Object-Oriented Problem Solving
+ * 		Retrieved from https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ * 		Gaddis, T. (2015). Starting Out With Java Myprogramming Lab 
+ * 		From Control Structures Through Objects. (6th ed.). Addison-Wesley. 
+ *
+ * Version: 1
+ *
+ * Responsibilities of class: Defines the chess board. Holds Pieces in their positions. 
+ *
+ */
 public class Board
 {
-	// Instance variable declarations
-	private Piece [][] board;
+	private Piece [][] board; 		// A piece array
 	
 	/**
 	 * Constructor
@@ -35,7 +54,10 @@ public class Board
 	{
 		// If the Piece is a king and has not moved
 		if (getPiece(fromIndex) instanceof King && !getPiece(fromIndex).hasMoved())
-		{
+		{		
+			// Remove the castling rights of the player
+			getPiece(fromIndex).getPlayer().setCastlingRights("");
+			
 			// If the King is castling Kingside
 			if (Arrays.equals(toIndex, new int[] {fromIndex[0] + 2, fromIndex[1]}))
 			{
@@ -51,8 +73,8 @@ public class Board
 			}
 		}
 		
-		// If the Piece is a Pawn
-		if (getPiece(fromIndex) instanceof Pawn)
+		// Else if the Piece is a Pawn
+		else if (getPiece(fromIndex) instanceof Pawn)
 		{
 			// If the Pawn is moving its initial two step
 			if(Math.abs(fromIndex[1] - toIndex[1]) == 2)
@@ -106,7 +128,27 @@ public class Board
 				getPiece(fromIndex).setPromoting(true);
 			}
 		}
-				
+		
+		// Else if the piece is a rook and the rook has not moved and the king has not moved
+		else if (getPiece(fromIndex) instanceof Rook && !getPiece(fromIndex).hasMoved() && !getPiece(fromIndex).getPlayer().getKing().hasMoved())
+		{
+			// If it's White's queenside rook, remove castling rights
+			if (fromIndex[0] == 0 && fromIndex[1] == 0)
+				getPiece(fromIndex).getPlayer().setCastlingRights(getPiece(fromIndex).getPlayer().getCastlingRights().replace("Q", ""));
+
+			// Else if it's White's kingside rook, remove castling rights
+			else if (fromIndex[0] == 7 && fromIndex[1] == 0)
+				getPiece(fromIndex).getPlayer().setCastlingRights(getPiece(fromIndex).getPlayer().getCastlingRights().replace("K", ""));
+			
+			// If it's Black's queenside rook, remove castling rights
+			if (fromIndex[0] == 0 && fromIndex[1] == 7)
+				getPiece(fromIndex).getPlayer().setCastlingRights(getPiece(fromIndex).getPlayer().getCastlingRights().replace("q", ""));
+
+			// Else if it's Black's kingside rook, remove castling rights
+			else if (fromIndex[0] == 7 && fromIndex[1] == 7)
+				getPiece(fromIndex).getPlayer().setCastlingRights(getPiece(fromIndex).getPlayer().getCastlingRights().replace("k", ""));
+		}
+			
 		// Places the Piece in the new Space
 		placePiece(board[fromIndex[0]][fromIndex[1]], toIndex);
 		
@@ -169,6 +211,54 @@ public class Board
 		// Else, return null
 		else
 			return null;
+	}
+	
+	/**
+	 * Returns the board state in FEN notation.
+	 * @return the board state in FEN notation
+	 */
+	public String toString()
+	{
+		String boardString = "";	// Holds the board state in FEN notation
+		int emptySpaceCounter = 0;	// Holds the number of empty spaces in a row
+		
+		// Nested for loops iterate through each Space on the board
+		for(int rank = 7;  rank >= 0; rank --)
+		{
+			for (int file = 0; file < 8; file ++)
+			{
+				// If the space is empty, increment the empty space counter
+				if (board[file][rank] == null)
+					emptySpaceCounter ++;
+				
+				// Else a piece is in the space
+				else 
+				{	
+					// If the empty space counter is zero, add the piece to the string
+					if (emptySpaceCounter == 0)
+						boardString += board[file][rank].toString();
+					
+					// Else add the empty space counter and the piece to the string and reset the counter
+					else
+					{
+						boardString += emptySpaceCounter + board[file][rank].toString();
+						emptySpaceCounter = 0;
+					}
+				}
+			}
+			
+			// If the empty space counter is not zero, add the counter to the string
+			if (emptySpaceCounter != 0)
+				boardString += emptySpaceCounter;
+			
+			// add a slash to the string at the end of the rank, unless at the last rank
+			if (rank != 0)
+				boardString += "/";		
+			
+			// reset the empty space counter
+			emptySpaceCounter = 0;
+		}
+		return boardString;
 	}
 }
 

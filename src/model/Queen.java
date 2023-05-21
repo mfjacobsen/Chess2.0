@@ -3,14 +3,43 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Lead Authors:
+ *
+ * @author Matthew Jacobsen; 5550026131
+ * @author Daniel Blasczyk; 5550063899
+ *
+ * References:
+ * 
+ * 		Morelli, R., & Walde, R. (2016). 
+ * 		Java, Java, Java: Object-Oriented Problem Solving
+ * 		Retrieved from https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ *
+ * 		Gaddis, T. (2015). Starting Out With Java Myprogramming Lab 
+ * 		From Control Structures Through Objects. (6th ed.). Addison-Wesley. 
+ *
+ * Version: 1
+ *
+ * Responsibilities of class: Defines the queen.
+ *
+ */
 public class Queen extends Piece 
 {
 
+	/**
+	 * Constructor.
+	 * @param player the Player the Piece belongs to
+	 */
 	public Queen(Player player)
 	{
+		// Calls the Piece constructor
 		super(player);
 	}
 
+	/**
+	 * Determines the indices the queen is threatening
+	 * @return an array list of int[] the Queen is threatening
+	 */
 	@Override
 	public ArrayList<int[]> determineThreats()
 	{
@@ -44,9 +73,27 @@ public class Queen extends Piece
 					// Add the index to the indices threatened
 					addThreatened(new int[] {toIndex[0], toIndex[1]});
 
-					// If there is a Piece at the index, set isClearPath to false
+					// If there is a Piece at the index
 					if (getBoard().getPiece(toIndex)!= null)
+					{
+						// Set isClearPath to false
 						isClearPath = false;
+						
+						// If the Piece is the opponent King
+						if (getBoard().getPiece(toIndex) == getPlayer().getOpponent().getKing())
+						{
+							// Sets toIndex to the square after the King
+							toIndex[0] = getIndex()[0] + (directions[0] * (distance + 1));
+							toIndex[1] = getIndex()[1] + (directions[1] * (distance + 1));
+							
+							// If that square is on the board, add it to the threatened list
+							if (getBoard().onBoard(toIndex))
+							{
+								// Add the index to the indices threatened
+								addThreatened(new int[] {toIndex[0], toIndex[1]});
+							}
+						}
+					}
 				}
 				
 				// Else the index is off the board, set isClearPath to false
@@ -63,6 +110,9 @@ public class Queen extends Piece
 		return getThreats();
 	}	
 
+	/**
+	 * Determines the queen's available moves
+	 */
 	@Override
 	public void determineMoves()
 	{
@@ -77,6 +127,9 @@ public class Queen extends Piece
 				addMove(threat);
 	}
 
+	/**
+	 * Determines the queen's line of attack on the opponent king
+	 */
 	@Override
 	public void determineLineOfAttack()
 	{
@@ -133,6 +186,9 @@ public class Queen extends Piece
 		} while (!foundKing);
 	}
 
+	/**
+	 * Determines if the queen is pinning another piece
+	 */
 	@Override
 	public void determinePins()
 	{
@@ -192,7 +248,6 @@ public class Queen extends Piece
 				// Add the index to the path
 				path.add(new int[] {pathIndex[0], pathIndex[1]});
 				distance++;
-				
 			}
 			
 			// If the index is occupied by the opposing player
@@ -244,5 +299,21 @@ public class Queen extends Piece
 				isPinnablePath = false;
 			}
 		}
+	}
+	
+	/**
+	 * Gets the value of the piece in FEN notation
+	 * @return the value of the piece in FEN notation
+	 */
+	@Override
+	public String toString()
+	{
+		// If the player is white, return a capital letter
+		if (getPlayer().getColor().equals("White"))
+			return "Q";
+		
+		// Else return a lower case letter
+		else 
+			return  "q";
 	}
 }
