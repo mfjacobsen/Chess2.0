@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
  * Lead Authors:
  *
  * @author Matthew Jacobsen; 5550026131
- * @author Daniel Blasczyk; 5550063899
  *
  * References:
  * 
@@ -67,6 +66,7 @@ public class ChessModel
 		// Initializes a new board
 		board = new Board();
 		
+		// Resets the players
 		white.resetPlayer();
 		black.resetPlayer();
 		
@@ -150,7 +150,7 @@ public class ChessModel
 		// Declares a local variable player 
 		Player player;
 		
-		// Sets player to the white or black based on the turn counter
+		// Sets player to white or black based on the turn counter
 		if (turnCounter % 2 == 0)
 			player = white;
 		

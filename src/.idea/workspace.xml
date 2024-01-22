@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4f408e76-3ab7-483a-8566-3aac3e70374d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../bin/application/MVCChess.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/application/MVCChess.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/controller/BoardButtonListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/controller/BoardButtonListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/controller/ChessController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/controller/ChessController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/Bishop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/ChessModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/ChessModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/King.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/King.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/Knight.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/Knight.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/Pawn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/Queen.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/Queen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/model/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/model/Rook.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bin/view/ChessView.class" beforeDir="false" afterPath="$PROJECT_DIR$/../bin/view/ChessView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/MVCChess.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/MVCChess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/BoardButtonListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/controller/BoardButtonListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/ChessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/controller/ChessController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/ColorRadioListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/controller/ColorRadioListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/ComputerPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/controller/ComputerPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/NewGameMenuListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/controller/NewGameMenuListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Bishop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/ChessModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/ChessModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Knight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Rook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/BoardButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/view/BoardButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/ChessView.java" beforeDir="false" afterPath="$PROJECT_DIR$/view/ChessView.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2bHtsoxpKcwd7nH8HJaUgxp82i0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/mfjac/eclipse-workspace/Chess2.0/src"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4f408e76-3ab7-483a-8566-3aac3e70374d" name="Changes" comment="" />
+      <created>1705884041763</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1705884041763</updated>
+    </task>
+    <servers />
+  </component>
+</project>

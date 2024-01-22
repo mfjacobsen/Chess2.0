@@ -9,7 +9,6 @@ import javax.swing.*;
  * Lead Authors:
  *
  * @author Matthew Jacobsen; 5550026131
- * @author Daniel Blasczyk; 5550063899
  *
  * References:
  * 
